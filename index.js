@@ -95,12 +95,12 @@ $(document).ready(function () {
     hideAviso();
     autenticarChave();
 
-    let isScrolling = false;  // Controle para saber se o evento de rolagem está em andamento
+    let isScrolling = false;  
 
     window.onscroll = function() {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             
-            if (isScrolling) return; // Se estiver em andamento, não faça nada
+            if (isScrolling) return; 
 
             isScrolling = true;
 
