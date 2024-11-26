@@ -95,22 +95,40 @@ $(document).ready(function () {
     hideAviso();
     autenticarChave();
 
+    let isScrolling = false;  // Controle para saber se o evento de rolagem está em andamento
+
     window.onscroll = function() {
+        // Verifica se o usuário chegou ao final da página
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            if(numIni>qtdMax){
+            
+            // Verifica se já não estamos processando um novo carregamento de imagens
+            if (isScrolling) return; // Se estiver em andamento, não faça nada
+
+            // Definir que estamos processando o evento de rolagem
+            isScrolling = true;
+
+            // Se o número inicial já excedeu o máximo
+            if (numIni > qtdMax) {
                 window.scrollTo({
-                    top: 0,  
-                    left: 0, 
+                    top: 0,
+                    left: 0,
                     behavior: 'smooth'
                 });
-            }
-            else{
-                if(numIni==qtdMax){
-                    qtd=2;
+            } else {
+                // Quando o valor de numIni atingir o valor máximo
+                if (numIni == qtdMax) {
+                    qtd = 2;  // Ajuste de quantidade, se necessário
                 }
-                buscarImagens(numIni,qtd);
-                numIni+=4;
+                // Chama a função para buscar as imagens
+                buscarImagens(numIni, qtd);
+                numIni += 4;
             }
+
+            // Após 500ms (tempo para carregar mais imagens, por exemplo), liberar o controle para o próximo scroll
+            setTimeout(function() {
+                isScrolling = false;
+            }, 100); // Ajuste o tempo conforme necessário
         }
     };
+
 });
